@@ -42,7 +42,7 @@ print(counties,n=10)
 
 #### <span style="color:pink;">Author Contribution (me)</span>
 
-> In the `childcare_costs` dataset there are 61 variables with 34,567 rows/observations. In the `counties` dataset there are 4 variables with 3,144 rows/observations. 
+> In the `childcare_costs` dataset there are 61 variables with 34,567 rows/observations. In the `counties` dataset there are 4 variables with 3,144 rows/observations. The two datasets have a variable on common, that being `county_fips_code`, which seems to be an identifying code for different geographical counties in California.
 
 ## California Childcare Costs
 
