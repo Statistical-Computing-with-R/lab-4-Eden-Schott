@@ -18,6 +18,8 @@ The data come to us from [TidyTuesday](https://github.com/rfordatascience/tidytu
 ```{r}
 #| label: setup
 
+library(tidyverse)
+
 ```
 
 ```{r}
@@ -29,6 +31,21 @@ counties <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytues
 ```
 
 **1. Briefly describe the dataset (~ 4 sentences). What information does it contain?**
+
+```{r}
+#| label: childcare-summary
+
+head(childcare_costs)
+summary(childcare_costs)
+
+```
+```{r}
+#| label: counties-summary
+
+head(counties)
+summary(counties)
+
+```
 
 ## California Childcare Costs
 
