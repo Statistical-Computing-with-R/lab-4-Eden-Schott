@@ -33,19 +33,16 @@ counties <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytues
 **1. Briefly describe the dataset (~ 4 sentences). What information does it contain?**
 
 ```{r}
-#| label: childcare-summary
+#| label: data-summary
 
-head(childcare_costs)
-summary(childcare_costs)
-
-```
-```{r}
-#| label: counties-summary
-
-head(counties)
-summary(counties)
+print(childcare_costs,n=10)
+print(counties,n=10)
 
 ```
+
+#### <span style="color:pink;">Author Contribution (me)</span>
+
+> In the `childcare_costs` dataset there are 61 variables with 34,567 rows/observations. In the `counties` dataset there are 4 variables with 3,144 rows/observations. 
 
 ## California Childcare Costs
 
