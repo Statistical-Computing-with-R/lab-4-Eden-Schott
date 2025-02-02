@@ -42,7 +42,7 @@ print(counties,n=10)
 
 #### <span style="color:pink;">Author Contribution (me)</span>
 
-> In the `childcare_costs` dataset there are 61 variables with 34,567 rows/observations. In the `counties` dataset there are 4 variables with 3,144 rows/observations. The two datasets have a variable on common, that being `county_fips_code`, which seems to be an identifying code for different geographical counties in California.
+> In the `childcare_costs` dataset there are 61 variables with 34,567 rows/observations. In the `counties` dataset there are 4 variables with 3,144 rows/observations. The two datasets have a variable on common, that being `county_fips_code`, which seems to be an identifying code for different geographical counties.
 
 ## California Childcare Costs
 
@@ -51,8 +51,14 @@ Let's start by focusing only on California.
 **2. Create a `ca_childcare` dataset of childcare costs in California, containing (1) county information and (2) all information from the `childcare_costs` dataset.** 
 *Hint: There are 58 counties in CA and 11 years in the dataset. Therefore, your new dataset should have 53 x 11 = 638 observations.*
 
+#### <span style="color:pink;">Author Contribution (me)</span>
+
 ```{r}
 #| label: ca-childcare-costs
+
+ca_childcare <- counties |>
+  filter(state_abbreviation == "CA") |>
+  inner_join(childcare_costs)
 
 ```
 
