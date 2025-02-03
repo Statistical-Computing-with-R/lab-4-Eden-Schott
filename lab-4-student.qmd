@@ -108,18 +108,38 @@ median_table <- ca_childcare |>
   select(mhi_2018, Region, study_year) |>
   group_by(Region, study_year) |>
   summarise(median_income = median(mhi_2018)) |>
-  pivot_wider(names_from = study_year, values_from = median_income)
+  pivot_wider(names_from = study_year, 
+              values_from = median_income)
   
 ```
-
 
 **5. Which California `region` had the lowest `median` full-time median weekly price for center-based childcare for infants in 2018? Does this `region` correspond to the `region` with the lowest `median` income in 2018 that you found in Q4?**  
 *Hint: The code should give me the EXACT answer. This means having the code output the exact row(s) and variable(s) necessary for providing the solution.*
 
+#### <span style="color:pink;">Author Contribution (me)</span>
+
 ```{r}
 #| label: lowest-median-weekly-price-2018
 
+median_infants <- ca_childcare |>
+  filter(study_year %in% "2018") |>
+  select(mc_infant, Region, study_year) |>
+  group_by(Region, study_year) |>
+  summarise(median_infant = median(mc_infant)) |>
+  pivot_wider(names_from = study_year, 
+              values_from = median_infant)
+
+median_table |>
+  arrange(`2018`) |>
+  head(1)
+
+median_infants |>
+  arrange(`2018`) |>
+  head(1)
+
 ```
+
+> No, the region with the lowest full-time median weekly price for center-based childcare for infants in 2018 does not correspond to the region with the lowest median income in 2018.
 
 **6. The following plot shows, for all ten regions, the change over time of the full-time median price for center-based childcare for infants, toddlers, and preschoolers. Recreate the plot. You do not have to replicate the exact colors or theme, but your plot should have the same content, including the order of the facets and legend, reader-friendly labels, axes breaks, and a loess smoother.**
 
@@ -127,6 +147,20 @@ median_table <- ca_childcare |>
 
 ```{r}
 #| label: recreate-plot
+
+ggplot(ca_childcare_long, aes(x = study_year, 
+                              y = `2018`, 
+                              color = Region)) +
+  geom_line() +
+  geom_smooth(method = "loess", se = TRUE, aes(group = childcare_type), color = "black") +  # Add loess smoother
+  facet_wrap(~ childcare_type, scales = "free_y", nrow = 3) +  # Facets for each childcare type
+  scale_x_continuous(breaks = c(2008, 2018)) +  # Set x-axis breaks
+  labs(
+    title = "Change in Full-Time Median Price for Center-Based Childcare",
+    x = "Study Year",
+    y = "Median Price",
+    color = "Region"
+  )
 
 ```
 
@@ -143,6 +177,7 @@ median_table <- ca_childcare |>
 **8. Look up the documentation for `lm()` and fit a linear regression model to the relationship shown in your plot above.**
 
 ```{r}
+#| label: complete
 # complete the code provided
 reg_mod1 <- lm()
 summary(reg_mod1)
