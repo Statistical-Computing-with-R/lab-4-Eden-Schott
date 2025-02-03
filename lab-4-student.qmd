@@ -107,17 +107,10 @@ median_table <- ca_childcare |>
   filter(study_year %in% c("2008", "2018")) |>
   select(mhi_2018, Region, study_year) |>
   group_by(Region, study_year) |>
-<<<<<<< HEAD
   summarise(median_income = median(mhi_2018)) |>
   pivot_wider(names_from = study_year, 
               values_from = median_income)
-  
-=======
-  summarise(median_income = median(mhi_2018, na.rm = TRUE)) |>
-  pivot_wider(names_from = study_year, values_from = median_income)
-  
 
->>>>>>> 0bacf5281bce6d9e1166ff0a03811721a941d19a
 ```
 
 **5. Which California `region` had the lowest `median` full-time median weekly price for center-based childcare for infants in 2018? Does this `region` correspond to the `region` with the lowest `median` income in 2018 that you found in Q4?**  
@@ -130,9 +123,9 @@ median_table <- ca_childcare |>
 
 median_infants <- ca_childcare |>
   filter(study_year %in% "2018") |>
-  select(mfcc_infant, Region, study_year) |>
+  select(mc_infant, Region, study_year) |>
   group_by(Region, study_year) |>
-  summarise(median_infant = median(mfcc_infant)) |>
+  summarise(median_infant = median(mc_infant)) |>
   pivot_wider(names_from = study_year, 
               values_from = median_infant)
 
@@ -158,34 +151,43 @@ median_infants |>
 #| label: recreate-plot
 
 median_childcare <- ca_childcare |>
-  select(mfcc_preschool, 
-         mfcc_toddler, 
-         mfcc_infant, 
+  select(mc_preschool, 
+         mc_toddler, 
+         mc_infant, 
          Region, 
          study_year) |>
   group_by(Region, study_year) |>
-  summarise(median_infant = median(mfcc_infant),
-            median_toddler = median(mfcc_toddler),
-            median_pre = median(mfcc_preschool)) |>
-  pivot_longer(cols = c(median_infant, 
-                        median_toddler, 
-                        median_pre), 
+  summarise(Infant = median(mc_infant),
+            Toddler = median(mc_toddler),
+            Preschool = median(mc_preschool)) |>
+  pivot_longer(cols = c(Infant, 
+                        Toddler, 
+                        Preschool), 
                names_to = "childcare_type", 
-               values_to = "price")
+               values_to = "price") |>
+  mutate(Region = fct_relevel(Region, 
+                              c("San Francisco Bay Area", "Orange County", 
+                                "Los Angeles County","Northern San Joaquin Valley",
+                                "Central Coast", "Inland Empire",
+                                "Superior California", "Southern San Joaquin Valley",
+                                "San Diego-Imperial", "North Coast")))
 
 
 ggplot(median_childcare, aes(x = study_year,
-                             y = childcare_type,
+                             y = price,
                              color = Region)) +
-  geom_line() +
-  geom_smooth(method = "loess",
-              aes(group = childcare_type)) +  
-  facet_wrap(~ childcare_type, 
-             scales = "free_y", 
-             nrow = 3) + 
-  labs(title = "Change in Full-Time Median Price for Center-Based Childcare",
+  geom_point() +
+  geom_smooth(method = "loess") +  
+  facet_wrap(~ childcare_type) +
+  scale_x_continuous(breaks = seq(2008, 2018, by = 2)) +
+  theme(aspect.ratio = 3.25/3,
+        legend.key.size = unit(0.5, "cm"),
+        axis.text.x = element_text(size = 6),
+        axis.text.y = element_text(size = 7)) +
+  labs(title = "Weekly Median Price for Center-Based Childcare ($)",
        x = "Study Year",
-       y = "Median Price",
+       y = "",
+       col = "California Region",
        color = "Region")
 
 ```
