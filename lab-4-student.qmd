@@ -4,6 +4,9 @@ author: "Eden Schott"
 format: html
 editor: source
 embed-resources: true
+code-tools: true
+echo: true
+code-fold: true
 ---
 
 ## The Data
@@ -216,6 +219,8 @@ ggplot(data = ca_childcare,
 
 **8. Look up the documentation for `lm()` and fit a linear regression model to the relationship shown in your plot above.**
 
+#### <span style="color:pink;">Author Contribution (me)</span>
+
 ```{r}
 #| label: complete
 # complete the code provided
@@ -225,8 +230,12 @@ summary(reg_mod1)
 
 **9. Using the output from `summary()`, write out the estimated regression line (recall: $y = mx + b$).**
 
+#### <span style="color:pink;">Author Contribution (me)</span>
+
 y = 0.001389x + 200 (estimate)
 
 **10. Do you have evidence to conclude there is a relationship between the median household income and the median weekly cost of center-based childcare for infants in California? Cite values from your `summary()` output to support your claim!**
+
+#### <span style="color:pink;">Author Contribution (me)</span>
 
 Based on a p-value of 2.2e-16 evaluated at the .05 significance level there is significant evidence to suggest a relationship between the median household income and the median weekly cost of center-based childcare for infants in California.
