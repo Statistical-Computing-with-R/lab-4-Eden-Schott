@@ -197,8 +197,20 @@ ggplot(median_childcare, aes(x = study_year,
 
 **7. Create a scatterplot showing the relationship between median household income (expressed in 2018 dollars) and the full-time median weekly price charged for center-based childcare for an infant in California. Overlay a linear regression line (lm) to show the trend.**
 
+#### <span style="color:pink;">Author Contribution (me)</span>
+
 ```{r}
 #| label: scatterplot-median-income-vs-childcare-cost
+
+ggplot(data = ca_childcare,
+       mapping = aes(x = mhi_2018,
+                     y = mc_infant)) + 
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "Median Household Income (expressed in 2018 dollars)",
+       y = "",
+       title = "Relationship between Median Household Income and Weekly Median Price of Center-based Childcare for Infants",
+       subtitle = "Weekly Median Price for Center-Based Childcare for Infant ($)")
 
 ```
 
@@ -207,7 +219,7 @@ ggplot(median_childcare, aes(x = study_year,
 ```{r}
 #| label: complete
 # complete the code provided
-reg_mod1 <- lm()
+reg_mod1 <- lm(mc_infant ~ mhi_2018, data = ca_childcare)
 summary(reg_mod1)
 ```
 
