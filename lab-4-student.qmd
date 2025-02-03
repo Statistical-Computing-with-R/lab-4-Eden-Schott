@@ -98,9 +98,18 @@ ca_childcare <- ca_childcare |>
 
 **4. Let's consider the median household income of each region, and how that income has changed over time. Create a table with ten rows, one for each region, and two columns, one for 2008 and one for 2018. The cells should contain the `median` of the median household income (expressed in 2018 dollars) of the `region` and the `study_year`. Arrange the rows by 2018 values.**
 
+#### <span style="color:pink;">Author Contribution (me)</span>
+
 ```{r}
 #| label: median-income-by-region-over-time
 
+median_table <- ca_childcare |>
+  filter(study_year %in% c("2008", "2018")) |>
+  select(mhi_2018, Region, study_year) |>
+  group_by(Region, study_year) |>
+  summarise(median_income = median(mhi_2018)) |>
+  pivot_wider(names_from = study_year, values_from = median_income)
+  
 ```
 
 
